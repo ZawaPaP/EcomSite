@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Hello E-commerce</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-info text-center">
+            <br>Hello E-commerce
+        </h1>
+    </div>
+    <div>
+        <div class="card-deck">
+            <div class="card">
+                <img src="/images/goho.jpg" alt="goho" class="card-img-top"
+                    style="width: 100%;height: 15vw;object-fit: cover;">
+
+                <div class="card-body">
+                    <h4 class="card-title"> Starry Night Over the Rhône </h4>
+                    <p class="card-title pricing-card-title">$ 200,000 </p>
+                    <p>Starry Night, commonly known as Starry Night Over the Rhône, is one of Vincent van Gogh's
+                        paintings of Arles at night.</p>
+                </div>
+                <div class="form-group">
+                    <label for="select_item1">amount</label>
+                    <select class="form-control" id="select_item1" onchange="select()">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="card">
+                <img src="/images/water.jpg" alt="water" class="card-img-top"
+                    style="width: 100%;height: 15vw;object-fit: cover;">
+                <div class="card-body">
+                    <h4 class="card-title">Water Lilies</h4>
+                    <p class="card-title pricing-card-title"> $ 600,000</p>
+                    <p>Water Lilies is a series of approximately 250 oil paintings by French Impressionist Claude Monet.
+                        The paintings depict his flower garden at his home in Giverny, and were the main focus of his
+                        artistic production during the last thirty years of his life.</p>
+                </div>
+                <div class="form-group">
+                    <label for="select_item2">amount</label>
+                    <select class="form-control" id="select_item2" onchange="select()">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="card">
+                <img src="/images/rnor.png" alt="rnor" class="card-img-top"
+                    style="width: 100%;height: 15vw;object-fit: cover;">
+                <div class="card-body">
+                    <h4 class="card-title">Venice, the Doge's Palace</h4>
+                    <p class="card-title pricing-card-title">$ 150,000</p>
+                    <p>Renoir’s joyful, light-filled landscapes and portraits—such as Dance at Le Moulin de la Galette
+                        (1876)—are still among the most recognizable artworks in the Western canon.</p>
+                </div>
+                <div class="form-group">
+                    <label for="select_item3">amount</label>
+                    <select class="form-control" id="select_item3" onchange="select()">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="container text-center">
+                <button id="checkout" class="btn btn-primary" onclick="checkout()" >Go to checkout</button>
+        </div>
+    </div>
+    <script>
+
+        function select() {
+            //入力ボックスの内容を表示する
+            let item1_amount = select_item1.selectedIndex;
+            let item2_amount = select_item2.selectedIndex;
+            let item3_amount = select_item3.selectedIndex;
+            return data = {
+                item1: item1_amount,
+                item2: item2_amount,
+                item3: item3_amount}
+        }
+
+        function checkout(){
+            data = select()
+            console.log(data)
+            fetch('/checkout', {
+                "method": 'GET',
+                "body": data,
+            }).then(
+            response => {
+            if (response.redirected) {
+            window.location = response.url
+            }}
+            )
+        }
+
+
+    </script>
+
+    <!--JS plugin-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
