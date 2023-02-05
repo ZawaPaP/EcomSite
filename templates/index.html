@@ -30,15 +30,6 @@
                     <p>Starry Night, commonly known as Starry Night Over the Rhône, is one of Vincent van Gogh's
                         paintings of Arles at night.</p>
                 </div>
-                <div class="form-group">
-                    <label for="select_item1">amount</label>
-                    <select class="form-control" id="select_item1" onchange="select()">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                </div>
             </div>
             <div class="card">
                 <img src="/images/water.jpg" alt="water" class="card-img-top"
@@ -50,15 +41,6 @@
                         The paintings depict his flower garden at his home in Giverny, and were the main focus of his
                         artistic production during the last thirty years of his life.</p>
                 </div>
-                <div class="form-group">
-                    <label for="select_item2">amount</label>
-                    <select class="form-control" id="select_item2" onchange="select()">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                </div>
             </div>
             <div class="card">
                 <img src="/images/rnor.png" alt="rnor" class="card-img-top"
@@ -69,47 +51,24 @@
                     <p>Renoir’s joyful, light-filled landscapes and portraits—such as Dance at Le Moulin de la Galette
                         (1876)—are still among the most recognizable artworks in the Western canon.</p>
                 </div>
-                <div class="form-group">
-                    <label for="select_item3">amount</label>
-                    <select class="form-control" id="select_item3" onchange="select()">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                </div>
+ 
             </div>
         </div>
         <div class="container text-center">
-                <button id="checkout" class="btn btn-primary" onclick="checkout()" >Go to checkout</button>
+            <form method="POST"action="/checkout" >
+                <div class="form-group">
+                    <label for="select_item">SELECT</label>
+                    <select class="form-control" name="select_item">
+                        <option value="Starry Night Over the Rhône">Starry Night Over the Rhône</option>
+                        <option value="Water Lilies">Water Lilies</option>
+                        <option value="Venice, the Doge's Palace">Venice, the Doge's Palace</option>
+                    </select>
+                </div>
+                <button id="checkout" class="btn btn-primary" >Go to checkout</button>
+            </form>
         </div>
     </div>
     <script>
-
-        function select() {
-            //入力ボックスの内容を表示する
-            let item1_amount = select_item1.selectedIndex;
-            let item2_amount = select_item2.selectedIndex;
-            let item3_amount = select_item3.selectedIndex;
-            return data = {
-                item1: item1_amount,
-                item2: item2_amount,
-                item3: item3_amount}
-        }
-
-        function checkout(){
-            data = select()
-            console.log(data)
-            fetch('/checkout', {
-                "method": 'GET',
-                "body": data,
-            }).then(
-            response => {
-            if (response.redirected) {
-            window.location = response.url
-            }}
-            )
-        }
 
 
     </script>
