@@ -29,18 +29,16 @@ def add_data():
     #delete duplicated column
     df = df.drop(columns=['id'])
     #Pandas to_sql
-    df.to_sql(name='products', con=conn, if_exists='replace')
+    df.to_sql(name='products', con=conn, if_exists='replace', index=False)
     conn.close()
 
-def check_data():
-    conn = sqlite3.connect('stripe.db', isolation_level=None)
+def get_data():
+    conn = sqlite3.connect('products.db', isolation_level=None)
     cursor = conn.cursor()
     sql = """SELECT * FROM products"""
     cursor.execute(sql)
     
     #全レコードを取り出す
-    print(cursor.fetchall())
+    data = (cursor.fetchall())
     conn.close()
-
-add_data()
-
+    return data

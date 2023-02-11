@@ -12,64 +12,48 @@
     <title>Hello E-commerce</title>
 </head>
 
-<body>
+<body class="bg-light">
     <div class="container">
         <h1 class="text-info text-center">
             <br>Hello E-commerce
         </h1>
     </div>
-    <div>
+    <div class="p-5">
         <div class="card-deck">
-            <div class="card">
-                <img src="/images/goho.jpg" alt="goho" class="card-img-top"
-                    style="width: 100%;height: 15vw;object-fit: cover;">
+            <div class="row">
+                {% for product in products %}
+                <div class="col-sm-4">
+                    <div class="card h-200">
+                        <img src="/images/goho.jpg" alt="goho" class="card-img-top">
 
-                <div class="card-body">
-                    <h4 class="card-title"> Starry Night Over the Rhône </h4>
-                    <p class="card-title pricing-card-title">$ 200,000 </p>
-                    <p>Starry Night, commonly known as Starry Night Over the Rhône, is one of Vincent van Gogh's
-                        paintings of Arles at night.</p>
+                        <div class="card-body">
+                            <h4 class="card-title">{{ product.Name }}</h4>
+                            <p class="card-title pricing-card-title">{{ product.Amount }} {{ product.Currency }}</p>
+                            <p>{{ product.Description }}</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="card">
-                <img src="/images/water.jpg" alt="water" class="card-img-top"
-                    style="width: 100%;height: 15vw;object-fit: cover;">
-                <div class="card-body">
-                    <h4 class="card-title">Water Lilies</h4>
-                    <p class="card-title pricing-card-title"> $ 600,000</p>
-                    <p>Water Lilies is a series of approximately 250 oil paintings by French Impressionist Claude Monet.
-                        The paintings depict his flower garden at his home in Giverny, and were the main focus of his
-                        artistic production during the last thirty years of his life.</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="/images/rnor.png" alt="rnor" class="card-img-top"
-                    style="width: 100%;height: 15vw;object-fit: cover;">
-                <div class="card-body">
-                    <h4 class="card-title">Venice, the Doge's Palace</h4>
-                    <p class="card-title pricing-card-title">$ 150,000</p>
-                    <p>Renoir’s joyful, light-filled landscapes and portraits—such as Dance at Le Moulin de la Galette
-                        (1876)—are still among the most recognizable artworks in the Western canon.</p>
-                </div>
- 
+                {% endfor %}
             </div>
         </div>
         <div class="container text-center">
-            <form method="POST"action="/checkout" >
+            <form method="POST" action="/checkout">
                 <div class="form-group">
                     <label for="select_item">SELECT</label>
                     <select class="form-control" name="select_item">
-                        <option value='{"name": "Starry Night Over the Rhône", "value":100000}'>Starry Night Over the Rhône</option>
+                        <option value='{"name": "Starry Night Over the Rhône", "value":100000}'>Starry Night Over the
+                            Rhône</option>
                         <option value='{"name": "Water Lilies", "value": 200000}'>Water Lilies</option>
-                        <option value='{"name": "Venice, the Doges Palace", "value":  300000}'>Venice, the Doge's Palace</option>
+                        <option value='{"name": "Venice, the Doges Palace", "value":  300000}'>Venice, the Doge's Palace
+                        </option>
                     </select>
                 </div>
-                <button id="checkout" class="btn btn-primary" >Go to checkout</button>
+                <button id="checkout" class="btn btn-primary">Go to checkout</button>
             </form>
         </div>
     </div>
     <script>
-        function checkout(){
+        function checkout() {
             fetch('/checkout', {
                 method: 'POST',
                 headers: {
@@ -78,10 +62,11 @@
                 },
                 body: JSON.stringify({ "id": 78912 })
             })
-            .then(response => response.json())
-        .then(response => console.log(JSON.stringify(response)))
-        }        
-
+                .then(response => response.json())
+                .then(response => console.log(JSON.stringify(response)))
+        }
+        products = products
+        console.log(products)
     </script>
 
     <!--JS plugin-->
