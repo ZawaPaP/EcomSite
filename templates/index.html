@@ -59,9 +59,9 @@
                 <div class="form-group">
                     <label for="select_item">SELECT</label>
                     <select class="form-control" name="select_item">
-                        <option value="Starry Night Over the Rhône">Starry Night Over the Rhône</option>
-                        <option value="Water Lilies">Water Lilies</option>
-                        <option value="Venice, the Doge's Palace">Venice, the Doge's Palace</option>
+                        <option value='{"name": "Starry Night Over the Rhône", "value":100000}'>Starry Night Over the Rhône</option>
+                        <option value='{"name": "Water Lilies", "value": 200000}'>Water Lilies</option>
+                        <option value='{"name": "Venice, the Doges Palace", "value":  300000}'>Venice, the Doge's Palace</option>
                     </select>
                 </div>
                 <button id="checkout" class="btn btn-primary" >Go to checkout</button>
@@ -69,7 +69,18 @@
         </div>
     </div>
     <script>
-
+        function checkout(){
+            fetch('/checkout', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ "id": 78912 })
+            })
+            .then(response => response.json())
+        .then(response => console.log(JSON.stringify(response)))
+        }        
 
     </script>
 
