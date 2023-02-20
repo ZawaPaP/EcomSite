@@ -14,17 +14,14 @@ app = Flask(__name__,
             static_url_path='',
             static_folder='templates')
 
-@app.route("/", methods = ['GET', 'POST'])
+@app.route("/", methods = ['GET'])
 def index():
-    if request.method == "POST":
-        data = request.form["data"]
-        return redirect (url_for("checkout", data=data))
-    
     products = products_get_data()
-    print(products)
-    return render_template('index.html', products = products)
+    for product in products:
+        product["Amount"] = currency_formatter(product["Amount"], product["Currency"])
+    return render_template('index.html', products=products)
 
-@app.route("/registration", methods = ['GET'])
+@app.route("/registration", methods = ['GET', 'POST'])
 def registration():
     return render_template('registration.html')
 
@@ -50,11 +47,15 @@ def complete_registration():
     user_add_data(user)
     return render_template('checkout.html')
 
+@app.route("/cart/<product_id>", methods=['POST'])
+def add_to_cart(product_id):
+    print(product_id)
+    return render_template('registration.html')
 
 @app.route("/checkout", methods = ['GET', 'POST'])
 def checkout():
-    item = json.loads(request.form.get('select_item'))
-    return render_template('checkout.html', item = item)
+    #item = json.loads(request.form.get('select_item'))
+    return render_template('checkout.html')
 
 @app.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
@@ -88,6 +89,11 @@ def cancel():
 
 def hash(string):
     return hashlib.sha256(string.encode('utf-8')).hexdigest()
+
+def currency_formatter(value, curr):
+    curr = curr.upper()
+    price = "{}  {:,.2f}".format(curr,value)
+    return price
 
 if __name__ == '__main__':
     app.run(port=4242)

@@ -13,6 +13,14 @@
 </head>
 
 <body class="bg-light">
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">E-Commerce!</a>
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-cart" viewBox="0 0 16 16">
+            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+          </svg>
+      </nav>
+      
+
     <div class="container">
         <h1 class="text-info text-center">
             <br>Hello E-commerce
@@ -22,51 +30,29 @@
         <div class="card-deck">
             <div class="row">
                 {% for product in products %}
-                <div class="col-sm-4">
-                    <div class="card h-200">
-                        <img src="/images/goho.jpg" alt="goho" class="card-img-top">
-
+                <div class="col-sm-4 mb-3">
+                    <div class="card h-100">
+                        <img src="images/{{ product.Name}}.jpeg" alt="goho" class="card-img-top img-thumbnail" style="max-height: 20rem;">
                         <div class="card-body">
                             <h4 class="card-title">{{ product.Name }}</h4>
-                            <p class="card-title pricing-card-title">{{ product.Amount }} {{ product.Currency }}</p>
                             <p>{{ product.Description }}</p>
+                                <p class="card-title pricing-card-title text-right font-italic" id="price">{{ product.Amount }}</p>
                         </div>
+                        <form action="{{ url_for('add_to_cart', product_id=product['Product ID']) }}" method="POST">
+                        <button  type="button" class="btn btn-outline-primary float-right">Add to Cart</button>
+                    </form>
                     </div>
                 </div>
                 {% endfor %}
             </div>
         </div>
-        <div class="container text-center">
-            <form method="POST" action="/checkout">
-                <div class="form-group">
-                    <label for="select_item">SELECT</label>
-                    <select class="form-control" name="select_item">
-                        <option value='{"name": "Starry Night Over the Rhône", "value":100000}'>Starry Night Over the
-                            Rhône</option>
-                        <option value='{"name": "Water Lilies", "value": 200000}'>Water Lilies</option>
-                        <option value='{"name": "Venice, the Doges Palace", "value":  300000}'>Venice, the Doge's Palace
-                        </option>
-                    </select>
-                </div>
-                <button id="checkout" class="btn btn-primary">Go to checkout</button>
-            </form>
-        </div>
     </div>
     <script>
-        function checkout() {
-            fetch('/checkout', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ "id": 78912 })
-            })
-                .then(response => response.json())
-                .then(response => console.log(JSON.stringify(response)))
+        function addToCart(productId) {
+            fetch('cart/productId', 
+                {method: 'POST'}
+            )
         }
-        products = products
-        console.log(products)
     </script>
 
     <!--JS plugin-->

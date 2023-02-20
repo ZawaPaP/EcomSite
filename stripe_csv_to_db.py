@@ -35,10 +35,17 @@ def add_data():
 def get_data():
     conn = sqlite3.connect('products.db', isolation_level=None)
     cursor = conn.cursor()
-    sql = """SELECT * FROM products"""
+    sql = """SELECT * FROM products """
     cursor.execute(sql)
     
-    #全レコードを取り出す
-    data = (cursor.fetchall())
+    data = []
+    
+    rows = cursor.fetchall()
+    for row in rows:
+        data.append(dict_factory(cursor, row))
     conn.close()
     return data
+
+def dict_factory(cursor, row):
+    fields = [column[0] for column in cursor.description]
+    return {key: value for key, value in zip(fields, row)}
