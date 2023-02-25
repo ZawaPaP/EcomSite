@@ -27,7 +27,7 @@ def add_data():
 
     df = df_product.merge(df_price, how='inner', left_on='id', right_on='Product ID')
     #delete duplicated column
-    df = df.drop(columns=['id'])
+    df = df.drop(columns=['Product ID'])
     #Pandas to_sql
     df.to_sql(name='products', con=conn, if_exists='replace', index=False)
     conn.close()
@@ -43,6 +43,17 @@ def get_data():
     rows = cursor.fetchall()
     for row in rows:
         data.append(dict_factory(cursor, row))
+    conn.close()
+    return data
+
+def get_item_by_productID(product_id):
+    conn = sqlite3.connect('products.db', isolation_level=None)
+    cursor = conn.cursor()
+    sql = "SELECT * FROM products WHERE id = ?"
+    cursor.execute(sql, (product_id,))
+    item = cursor.fetchone()
+    data = []
+    data.append(dict_factory(cursor, item))
     conn.close()
     return data
 
