@@ -1,113 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
-    <title>Checkout your item</title>
+<html>
+  <head>
+    <title>Continue checkout</title>
 
     <!-- Bootstrap core CSS -->
     <link href=https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <!-- Favicons -->
-    <link rel="touch-icon" href="images/icon.png" sizes="180x180">
-
-    <!-- Custom styles for this template -->
-</head>
-
-<body class="bg-light">
-    <div class="container">
-
+  </head>
+  <body class="bg-light">
+    <section>
+      <div class="center-block mb-4 mt-3">
         <div class="py-5 text-center">
-            <img class="d-block mx-auto mb-4" src="images/icon.png" alt="" width="108" height="108">
-            <h2>Checkout form</h2>
-            <p class="lead">Below is a test form and send out hashed data to third party platform.</p>
+          <img class="d-block mx-auto mb-4" src="images/icon.png" alt="" width="108" height="108">
+          <p class="lead">Please note we don't sell physical painting but send out jpg file by email</p>
         </div>
 
-        <div class="row">
-            <div class="col-md-4 order-md-2 mb-4">
-                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-muted">Your cart</span>
-                </h4>
-                <ul class="list-group mb-3">
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Product name</h6>
-                            <small class="text-muted">{{item}}</small>
-                        </div>
-                        <span class="text-muted">$100000</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Total (USD)</span>
-                        <strong>$100000</strong>
-                    </li>
-                </ul>
-            </div>
+        <div class="w-75 mt-4 mb-4 m-auto">
+          <h4 class="d-block align-items-center mb-3 text-center">
+            <span class="text-muted">Your cart</span>
+            <span class="badge badge-secondary badge-pill">3</span>
+          </h4>
+          <ul class="list-group mb-3">
+            {% for item in items %}
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <h6 class="my-0">{{item.Name}}</h6>
+                <small class="text-muted">{{item.Description}}</small>
+              </div>
+              <span class="text-muted">{{item.Amount}}</span>
+            </li>
+            {% endfor %}
+          </ul>
 
-            <div class="col-md-8 order-md-1">
-                <h4 class="mb-3">Customer info</h4>
-                <form class="needs-validation" form method="POST"action="/thanks" novalidate>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="firstName">First name</label>
-                            <input type="text" class="form-control" name="firstName" placeholder="" value="" required />
-                            <div class="invalid-feedback">
-                                Valid first name is required.
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="lastName">Last name</label>
-                            <input type="text" class="form-control" name="lastName" placeholder="" value="" required />
-                            <div class="invalid-feedback">Valid last name is required.</div>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="email">Email </label>
-                        <input type="email" class="form-control" name="email" placeholder="you@example.com" required/>
-                        <div class="invalid-feedback">
-                            Please enter a valid email address for shipping updates.
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="phone">Phone </label>
-                        <input type="phone" class="form-control" name="phone" placeholder="000000000" required/>
-                        <div class="invalid-feedback">
-                            Please enter a valid phone number.
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="address">Address</label>
-                        <input type="text" class="form-control" name="address" placeholder="1234 Main St" required />
-                        <div class="invalid-feedback">
-                            Please enter your shipping address.
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-                        <input type="text" class="form-control" name="address2" placeholder="Apartment or suite" />
-                    </div>
-
-                    <hr class="mb-4" />
-                    <button class="btn btn-primary" id="purchase" type="submit">
-                        Purchase
-                    </button>
-                </form>
-            </div>
-        </div>
+      <form class="d-md-flex justify-content-md-end" action="/create-checkout-session" method="POST">
+        <button class="btn btn-outline-primary" type="submit" id="checkout-button">Checkout</button>
+      </form>
     </div>
-    <script src="/docs/4.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP"
-        crossorigin="anonymous"></script>
-    <script src="form-validation.js"></script>
-
-    <script type="text/javascript">
-    </script>
-
-</body>
-
+  </div>
+    </section>
+  </body>
 </html>
