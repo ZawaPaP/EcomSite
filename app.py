@@ -8,14 +8,15 @@ from datetime import timedelta
 #from dotenv import load_dotenv
 
 #load_dotenv('.env')
-stripe.api_key = os.environ.get("Stripe_API_KEY")
+stripe.api_key = os.getenv('Stripe_API_KEY')
+print("stripe.api_key: " + stripe.api_key)
 YOUR_DOMAIN = 'https://ec-vuqv.onrender.com'
 
 app = Flask(__name__,
             static_url_path='',
             static_folder='templates')
 
-app.secret_key = os.environ.get("Flask_SESSION.SECRET_KEY")
+app.secret_key = os.getenv('Flask_SESSION.SECRET_KEY')
 app.permanent_session_lifetime = timedelta(hours=1)
 
 
