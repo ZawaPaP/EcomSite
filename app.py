@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 
 load_dotenv('.env')
 stripe.api_key = os.environ.get("Stripe_API_KEY")
-YOUR_DOMAIN = 'http://localhost:4242'
+YOUR_DOMAIN = 'https://ec-vuqv.onrender.com'
 
 app = Flask(__name__,
             static_url_path='',
