@@ -20,7 +20,7 @@ def init():
 
 
 def add_data():
-    conn = sqlite3.connect('products.db', isolation_level=None)
+    conn = sqlite3.connect('db/products.db', isolation_level=None)
 
     df_product = pd.read_csv('csv/products.csv', usecols=[0, 1, 4])
     df_price = pd.read_csv('csv/prices.csv', usecols=[0, 1, 7, 8])
@@ -33,7 +33,7 @@ def add_data():
     conn.close()
 
 def get_data():
-    conn = sqlite3.connect('products.db', isolation_level=None)
+    conn = sqlite3.connect('db/products.db', isolation_level=None)
     cursor = conn.cursor()
     sql = """SELECT * FROM products """
     cursor.execute(sql)
@@ -47,7 +47,7 @@ def get_data():
     return data
 
 def get_item_by_productID(product_id):
-    conn = sqlite3.connect('products.db', isolation_level=None)
+    conn = sqlite3.connect('db/products.db', isolation_level=None)
     cursor = conn.cursor()
     sql = "SELECT * FROM products WHERE id = ?"
     cursor.execute(sql, (product_id,))
