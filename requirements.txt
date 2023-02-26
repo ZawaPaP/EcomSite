@@ -1,7 +1,5 @@
 Flask
 Flask-Session
-os
 stripe
-datetime
 dotenv
 Gunicorn
