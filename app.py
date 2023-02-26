@@ -1,22 +1,21 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template,redirect, session
 import hashlib
 import os
 import stripe
-from user_db import add_data as user_add_data
 from stripe_csv_to_db import get_data as products_get_data
 from stripe_csv_to_db import get_item_by_productID as get_item_by_productID
 from datetime import timedelta
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
-load_dotenv('.env')
-stripe.api_key = os.environ.get("Stripe_API_KEY")
+#load_dotenv('.env')
+stripe.api_key = os.getenv("Stripe_API_KEY")
 YOUR_DOMAIN = 'https://ec-vuqv.onrender.com'
 
 app = Flask(__name__,
             static_url_path='',
             static_folder='templates')
 
-app.secret_key = os.environ.get("Flask_session.secret_key")
+app.secret_key = os.getenv("Flask_session.secret_key")
 app.permanent_session_lifetime = timedelta(hours=1)
 
 
