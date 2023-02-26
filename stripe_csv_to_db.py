@@ -4,7 +4,7 @@ import sqlite3
 import pandas as pd
 
 def init():
-    conn = sqlite3.connect('products.db')
+    conn = sqlite3.connect('db/products.db')
     cursor = conn.cursor()
     sql = """CREATE TABLE IF NOT EXISTS products (
         id integer primary key autoincrement,

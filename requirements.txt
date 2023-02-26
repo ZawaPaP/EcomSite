@@ -1,2 +1,5 @@
 Flask
+Flask-Session
+stripe
+pandas
 Gunicorn
