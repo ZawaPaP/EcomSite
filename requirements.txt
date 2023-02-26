@@ -1,10 +1,8 @@
 Flask
-render_template
-request
-redirect
-url_for
-session
-Gunicorn
+Flask-Session
+hashlib
 os
 stripe
-timedelta
+datetime
+dotenv
+Gunicorn
