@@ -18,6 +18,7 @@ app = Flask(__name__,
 
 app.secret_key = os.getenv('Flask_SESSION.SECRET_KEY')
 print("app.secret_key: " + app.secret_key)
+print(app.secret_key)
 app.permanent_session_lifetime = timedelta(hours=1)
 
 
