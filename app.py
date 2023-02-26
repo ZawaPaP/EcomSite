@@ -16,9 +16,9 @@ app = Flask(__name__,
             static_url_path='',
             static_folder='templates')
 
-app.secret_key = os.getenv('Flask_SESSION.SECRET_KEY')
-print(os.getenv('Flask_SESSION.SECRET_KEY', 'default-key-for-test'))
-print("app.secret_key: " + app.secret_key)
+app.secret_key = os.getenv('Flask_SESSION.SECRET_KEY', 'default-key-for-test')
+app.config['SESSION_TYPE'] = 'redis'
+print(os.getenv('Flask_SESSION.SECRET_KEY'))
 print(app.secret_key)
 app.permanent_session_lifetime = timedelta(hours=1)
 
