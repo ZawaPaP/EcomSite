@@ -1,9 +1,27 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Checkout canceled</title>
-  <link rel="stylesheet" href="style.css">
+  <!-- Meta Pixel Code -->
+  <script>
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+      n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '3459339171001375');
+    fbq('track', 'PageView');
+  </script>
+  <!-- End Meta Pixel Code -->
 </head>
+
 <body>
   <section>
     <p>Forgot to add something to your cart? Shop around then come back to pay!</p>
@@ -11,5 +29,9 @@
   <div class="pt-2">
     <h4 class="mb-0"><a href="/" class="text-body"> <i class="me-2"></i>Back to shop</a></h4>
   </div>
+  <script>
+    fbq('track', 'Cancel');
+  </script>
 </body>
+
 </html>

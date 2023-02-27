@@ -5,12 +5,14 @@ import stripe
 from stripe_csv_to_db import get_data as products_get_data
 from stripe_csv_to_db import get_item_by_productID as get_item_by_productID
 from datetime import timedelta
+from stripe_get_data import get_billing_data
 #from dotenv import load_dotenv
 
 #load_dotenv('.env')
-stripe.api_key = os.getenv('Stripe_API_KEY')
+stripe.api_key = os.getenv('Stripe_TEST_KEY')
 
-YOUR_DOMAIN = 'https://ec-vuqv.onrender.com'
+DEPLOY_DOMAIN = 'https://ec-vuqv.onrender.com'
+#TEST_DOMAIN = 'http://127.0.0.1:4242'
 
 app = Flask(__name__,
             static_url_path='',
@@ -84,7 +86,6 @@ def delete_from_cart(product_id):
     for item in cart_list:
         if product_id in item["id"]:
             cart_list.remove(item)
-    print(cart_list)
     session['cart_items'] = cart_list
     return redirect("/checkout")
 
@@ -120,6 +121,7 @@ def create_checkout_session():
     if 'cart_items' not in session:
         redirect("/")
     try:
+        """ deploy code
         items = []
         cart_items = session['cart_items']
         for item in cart_items:
@@ -128,21 +130,31 @@ def create_checkout_session():
             print(product)
             items.append(
                 {'price': product["Price ID"], 'quantity': item['quantity'], })
+
+        line_items=items,
+        """
         checkout_session = stripe.checkout.Session.create(
-            line_items=items,
+            # stripe test code
+            line_items=[
+                {
+                    # Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+                    'price': 'price_1MZvCsA9Qashsbv2nKMBjfu7',
+                    'quantity': 1,
+                },
+            ],
             mode='payment',
-            success_url= YOUR_DOMAIN + '/success.html',
-            cancel_url=YOUR_DOMAIN + '/cancel.html',
+            success_url= DEPLOY_DOMAIN + '/success',
+            cancel_url = DEPLOY_DOMAIN + '/cancel',
             automatic_tax={'enabled': False},
         )
     except Exception as e:
         return str(e)
-
     return redirect(checkout_session.url, code=303)
 
 
 @app.route("/success")
 def success():
+    get_billing_data()
     return render_template('success.html')
 
 

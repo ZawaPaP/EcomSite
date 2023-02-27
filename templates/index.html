@@ -10,6 +10,23 @@
         integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
     <title>Hello E-commerce</title>
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '3459339171001375');
+        fbq('track', 'PageView');
+    </script>
+    <!-- End Meta Pixel Code -->
 </head>
 
 <body class="bg-light">
@@ -57,7 +74,8 @@
                                 }}</p>
                         </div>
                         <form action="{{ url_for('add_to_cart', product_id=product['id']) }}" method="POST">
-                            <button type="submit" class="btn btn-outline-primary float-right">Add to Cart</button>
+                            <button id="addToCart" type="submit" class="btn btn-outline-primary float-right">Add to
+                                Cart</button>
                         </form>
                     </div>
                 </div>
@@ -65,6 +83,16 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        var button = document.getElementById('addToCart');
+        button.addEventListener(
+            'click',
+            function () {
+                fbq('track', 'AddToCart');
+            },
+            false
+        );
+    </script>
     <script>
         function addToCart(productId) {
             fetch('cart/productId',
